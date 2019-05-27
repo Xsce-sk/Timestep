@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPunCallbacks
 {
     public float moveSpeed = 5;
     public float maxSpeed = 10;
@@ -30,12 +32,20 @@ public class PlayerController : MonoBehaviour
 
     void UpdateModifiers()
     {
+        // Make sure only controlling your player
+        if (photonView.IsMine == false)
+            return;
+
         horizontalModifier = Input.GetAxisRaw("Horizontal");
         verticalModifier = Input.GetAxisRaw("Vertical");
     }
 
     void Move()
     {
+        // Make sure only controlling your player
+        if (photonView.IsMine == false)
+            return;
+
         Vector3 moveForce = new Vector3(horizontalModifier * moveSpeed, verticalModifier * moveSpeed, 0);
         m_Rigidbody.AddForce(moveForce);
 
