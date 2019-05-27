@@ -10,15 +10,14 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     public static GameObject LocalPlayerInstance;
 
 
-    protected Transform m_Transform;
-    protected Transform m_HMDTransform = null;
-
-    public GameObject model;
-    public bool hideModelOnLocal;
-
 
     private void Awake()
     {
+        if (photonView.IsMine)
+        {
+            PlayerManager.LocalPlayerInstance = this.gameObject;
+        }
+
         DontDestroyOnLoad(this.gameObject);;
     }
 

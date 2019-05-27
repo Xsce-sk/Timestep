@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94815cfbdc9d9344ab3d6e14f1a18ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 0}
-  PunCallbacks: 0
+  playerPrefab: {fileID: 242, guid: 0a09c1f559485bc4997aae2305ff84cf, type: 3}
+  PunCallbacks: 1
   m_Player: {fileID: 0}
   m_isConnected: 0

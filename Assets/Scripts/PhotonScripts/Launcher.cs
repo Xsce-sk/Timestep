@@ -7,10 +7,16 @@ using Photon.Realtime;
 public class Launcher : MonoBehaviourPunCallbacks
 {
     [Header("Settings")]
+    public string gameVersion = "1";
     public byte maxPlayersPerRoom = 4;
     public string SceneName;
     public bool ConnectOnStart = false;
     public bool PunCallbacks;
+
+    private void Awake()
+    {
+        PhotonNetwork.AutomaticallySyncScene = true;
+    }
 
     void Start()
     {
@@ -23,7 +29,15 @@ public class Launcher : MonoBehaviourPunCallbacks
     // What the button should call to connect
     public void Connect()
     {
-        PhotonNetwork.ConnectUsingSettings();
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.JoinRandomRoom();
+        }
+        else
+        {
+            PhotonNetwork.GameVersion = gameVersion;
+            PhotonNetwork.ConnectUsingSettings();
+        }
     }
 
 
@@ -46,9 +60,10 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         if (PunCallbacks)
-            Debug.Log("OnJoinRoomFailed() was called by PUN");
+            Debug.Log("OnJoinRoomFailed() was called by PUN. Attempting to create 'Room1'.");
 
         PhotonNetwork.CreateRoom("Room1", new RoomOptions { IsVisible = true, IsOpen = true, MaxPlayers = maxPlayersPerRoom });
+
         if (PunCallbacks)
             Debug.Log("Created Room: Room1");
     }
