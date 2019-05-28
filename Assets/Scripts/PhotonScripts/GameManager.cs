@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
+using Cinemachine;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [Header("Settings")]
     public GameObject playerPrefab;
+    public GameObject vCam;
     public bool PunCallbacks;
 
     [Header("Debug")]
@@ -42,6 +44,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 m_Player = PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0, 0, 0), Quaternion.identity, 0);
                 m_Player.GetComponent<MeshRenderer>().enabled = true; // Turn on the mesh renderer for the local player. Probably a better way to do this.
+                SetupCinemachine();
             }
             else
             {
@@ -50,15 +53,18 @@ public class GameManager : MonoBehaviourPunCallbacks
             
         }
     }
-	
 	void Update ()
     {
 		
 	}
 
-    public override void OnLeftRoom()
+    void SetupCinemachine()
     {
-        PhotonNetwork.LoadLevel("PhotonLauncher");
+        GameObject camObj = Instantiate(vCam, new Vector3(0, 0, 0), Quaternion.identity);
+        CinemachineVirtualCamera virtCam = camObj.GetComponent<CinemachineVirtualCamera>();
+        virtCam.LookAt = m_Player.transform;
+        virtCam.Follow = m_Player.transform;
+        virtCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = new Vector3(0, 3.2f, -17);
     }
 
     #region PUN Callbacks
@@ -75,6 +81,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (PunCallbacks)
             Debug.LogWarningFormat("OnDisconnected() was called by PUN with reason {0}", cause);
+    }
+
+    public override void OnLeftRoom()
+    {
+        PhotonNetwork.LoadLevel("PhotonLauncher");
     }
     #endregion
 }

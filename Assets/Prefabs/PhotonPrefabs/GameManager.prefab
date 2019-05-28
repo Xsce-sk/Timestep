@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 100, guid: 0a09c1f559485bc4997aae2305ff84cf, type: 3}
+  vCam: {fileID: 2800999675398828166, guid: e81a5a0def39bb94290cf72bb6e525dd, type: 3}
   PunCallbacks: 1
   m_Player: {fileID: 0}
   m_isConnected: 0

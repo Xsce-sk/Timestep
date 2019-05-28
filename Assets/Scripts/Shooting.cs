@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Shooting : MonoBehaviour
+public class Shooting : MonoBehaviourPunCallbacks
 {
     public KeyCode shootKey;
     public GameObject projectile;
@@ -53,6 +54,10 @@ public class Shooting : MonoBehaviour
 
     public void Shoot()
     {
+        // Make sure only controlling your player
+        if (photonView.IsMine == false)
+            return;
+
         m_MousePos = Input.mousePosition;
 
         //m_MousePos.z = 12;
