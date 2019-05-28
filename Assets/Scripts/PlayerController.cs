@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class PlayerController : MonoBehaviourPunCallbacks
+public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 {
     public float moveSpeed = 5;
     public float maxSpeed = 10;
@@ -77,6 +77,20 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             var emission = m_JumpParticleSystem.emission;
             emission.enabled = isMoving;
+        }
+    }
+
+    // Streams whether the local player is moving or not to the other users.
+    // Enables/disables the particle system for player across all clients.
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if(stream.IsWriting)
+        {
+            stream.SendNext(isMoving);
+        }
+        else
+        {
+            this.isMoving = (bool)stream.ReceiveNext();
         }
     }
 }
