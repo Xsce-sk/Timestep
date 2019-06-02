@@ -4862,6 +4862,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae57711f5edbf8488eecd3d95714edb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showDebug: 1
+  health: 1
 --- !u!114 &530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4898,8 +4900,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 1
+  m_SynchronizeRotation: 0
+  m_SynchronizeScale: 0
 --- !u!114 &1156375116980490530
 MonoBehaviour:
   m_ObjectHideFlags: 0
