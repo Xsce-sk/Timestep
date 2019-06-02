@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (PlayerManager.LocalPlayerInstance == null)
             {
                 m_Player = PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0, 0, 0), Quaternion.identity, 0);
+                m_Player.name = m_Player.GetPhotonView().ViewID.ToString();
                 m_Player.GetComponent<MeshRenderer>().enabled = true; // Turn on the mesh renderer for the local player. Probably a better way to do this.
                 SetupCinemachine();
             }

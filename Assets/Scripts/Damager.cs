@@ -1,28 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Damager : MonoBehaviour
 {
     [Header("Settings")]
     public bool showDebug;
 
-    [SerializeField]
-    private int damage;
+    [Header("Debug")]
+    [SerializeField] private int m_Damage;
+    [SerializeField] private GameObject m_Shooter; // Sort of gross way to see who shot the projectile, that way you don't hit yourself
 
     void OnTriggerEnter(Collider other)
     {
-        IDamageable damageableComponent = other.GetComponent<IDamageable>();
-        if(damageableComponent != null)
+        Debug.Log("Projectile collided with " + other.gameObject.name);
+        if (other.gameObject.name != m_Shooter.name && m_Shooter != null)
         {
-            damageableComponent.LoseHealth(damage);
-
-            if(showDebug)
+            IDamageable damageableComponent = other.GetComponent<IDamageable>();
+            if (damageableComponent != null)
             {
-                Debug.Log(other.name + " was hit and they have a damageableComponent.");
-            }
-        }
+                damageableComponent.LoseHealth(m_Damage);
 
-        Destroy(this.gameObject);
+                if (showDebug)
+                {
+                    Debug.Log(other.name + " was hit and they have a damageableComponent.");
+                }
+                PhotonNetwork.Destroy(this.gameObject); // use to destroy objects on the network
+            }
+
+            
+        }
+    }
+
+    public void SetShooter(GameObject shooter)
+    {
+        m_Shooter = shooter;
+        Debug.Log("Projectile shooter set to " + m_Shooter.name);
     }
 }

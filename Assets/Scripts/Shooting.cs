@@ -75,6 +75,7 @@ public class Shooting : MonoBehaviourPunCallbacks
             //m_ShootDir.z = m_Transform.position.z;
 
             GameObject proj = PhotonNetwork.Instantiate(projectile.name, m_Transform.position, Quaternion.identity);
+            proj.GetComponent<Damager>().SetShooter(this.gameObject);
 
             proj.transform.LookAt(m_ShootDir);
 
