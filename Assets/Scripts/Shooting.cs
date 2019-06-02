@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class Shooting : MonoBehaviourPunCallbacks
 {
@@ -73,7 +74,7 @@ public class Shooting : MonoBehaviourPunCallbacks
 
             //m_ShootDir.z = m_Transform.position.z;
 
-            GameObject proj = Instantiate(projectile, m_Transform.position, Quaternion.identity);
+            GameObject proj = PhotonNetwork.Instantiate(projectile.name, m_Transform.position, Quaternion.identity);
 
             proj.transform.LookAt(m_ShootDir);
 
