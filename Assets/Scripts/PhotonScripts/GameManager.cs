@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         CinemachineVirtualCamera virtCam = camObj.GetComponent<CinemachineVirtualCamera>();
         virtCam.LookAt = m_Player.transform;
         virtCam.Follow = m_Player.transform;
-        virtCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = new Vector3(0, 3.2f, -17);
+        virtCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = new Vector3(0, 3.2f, -30);
     }
 
     #region PUN Callbacks

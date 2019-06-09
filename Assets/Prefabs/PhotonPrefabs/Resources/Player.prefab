@@ -4648,7 +4648,7 @@ ParticleSystem:
 --- !u!199 &518
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -4915,9 +4915,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootKey: 323
-  projectile: {fileID: 2176356233572410406, guid: 7dc332bfcb94ec44ab4146357377fb9c,
-    type: 3}
-  projSpeed: 5
+  projectile: {fileID: 244, guid: 7dc332bfcb94ec44ab4146357377fb9c, type: 3}
+  projSpeed: 12
   offset: 0
   m_Transform: {fileID: 0}
   m_MousePos: {x: 0, y: 0, z: 0}

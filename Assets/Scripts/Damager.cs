@@ -15,7 +15,7 @@ public class Damager : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("Projectile collided with " + other.gameObject.name);
-        if (other.gameObject.name != m_Shooter.name && m_Shooter != null)
+        if (other.gameObject.name != m_Shooter.name && m_Shooter != null )
         {
             IDamageable damageableComponent = other.GetComponent<IDamageable>();
             if (damageableComponent != null)
@@ -29,7 +29,10 @@ public class Damager : MonoBehaviour
                 PhotonNetwork.Destroy(this.gameObject); // use to destroy objects on the network
             }
 
-            
+            if(other.CompareTag("Wall"))
+                PhotonNetwork.Destroy(this.gameObject); // use to destroy objects on the network
+
+
         }
     }
 
