@@ -4648,7 +4648,7 @@ ParticleSystem:
 --- !u!199 &518
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -4725,7 +4725,7 @@ GameObject:
   - component: {fileID: 534}
   - component: {fileID: 537}
   - component: {fileID: 533}
-  - component: {fileID: 564}
+  - component: {fileID: 538}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4902,7 +4902,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 0
   m_SynchronizeScale: 0
---- !u!114 &564
+--- !u!114 &538
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4915,7 +4915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootKey: 323
-  projectile: {fileID: 244, guid: 7dc332bfcb94ec44ab4146357377fb9c, type: 3}
+  projectile: {fileID: 102, guid: 7dc332bfcb94ec44ab4146357377fb9c, type: 3}
   projSpeed: 12
   offset: 0
   m_Transform: {fileID: 0}

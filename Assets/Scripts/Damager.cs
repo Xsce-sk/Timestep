@@ -15,7 +15,7 @@ public class Damager : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("Projectile collided with " + other.gameObject.name);
-        if (other.gameObject.name != m_Shooter.name && m_Shooter != null )
+        if (m_Shooter != null  && other.gameObject.name != m_Shooter.name)
         {
             IDamageable damageableComponent = other.GetComponent<IDamageable>();
             if (damageableComponent != null)
