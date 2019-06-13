@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     float horizontalModifier;
     float verticalModifier;
-    public bool isMoving;
+    bool isMoving;
 
     ParticleSystem m_JumpParticleSystem;
     Rigidbody m_Rigidbody;
@@ -73,10 +73,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     void UpdateParticleEffect()
     {
-
-            var emission = m_JumpParticleSystem.emission;
-            emission.enabled = isMoving;
-
+        if(isMoving && !m_JumpParticleSystem.isPlaying)
+        {
+            Debug.Log("Hey we are moving!!");
+            m_JumpParticleSystem.Play();
+        }
+        else if(!isMoving && m_JumpParticleSystem.isPlaying)
+        {
+            m_JumpParticleSystem.Stop();
+        }
     }
 
     // Streams whether the local player is moving or not to the other users.
