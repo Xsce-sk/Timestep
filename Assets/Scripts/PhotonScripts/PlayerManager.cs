@@ -60,18 +60,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable, IDamagea
 
     public void LoseHealth(int deltaHealth, string playerName)
     {
-        if (showDebug)
-        {
-            Debug.Log(this.gameObject.name + " now has " + health);
-        }
-
-        health -= deltaHealth;
-
-        if (health == 0 && playerName == LocalPlayerInstance.name)
-        {
-            if (DeathCoroutine == null)
-                DeathCoroutine = StartCoroutine(Death());
-        }
+        photonView.RPC("LoseHealthRPC", RpcTarget.Others, deltaHealth, playerName);
     }
 
     IEnumerator Death()
@@ -104,6 +93,22 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable, IDamagea
         Destroy(blood, 2);
     }
 
+    [PunRPC]
+    public void LoseHeatlhRP(int deltaHealth, string playerName)
+    {
+        if (showDebug)
+        {
+            Debug.Log(this.gameObject.name + " now has " + health);
+        }
+
+        health -= deltaHealth;
+
+        if (health == 0 && playerName == LocalPlayerInstance.name)
+        {
+            if (DeathCoroutine == null)
+                DeathCoroutine = StartCoroutine(Death());
+        }
+    }
 
 
 
