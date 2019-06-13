@@ -22,12 +22,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         m_JumpParticleSystem = transform.GetChild(0).GetComponent<ParticleSystem>();
     }
 
+    void Update()
+    {
+        UpdateParticleEffect();
+    }
+
     void FixedUpdate()
     {
         UpdateModifiers();
         Move();
         LimitSpeed();
-        UpdateParticleEffect();
     }
 
     void UpdateModifiers()
