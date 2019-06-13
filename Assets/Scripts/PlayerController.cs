@@ -73,14 +73,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     void UpdateParticleEffect()
     {
-        if(isMoving && !m_JumpParticleSystem.isPlaying)
+        if(isMoving)
         {
-            Debug.Log("Hey we are moving!!");
-            m_JumpParticleSystem.Play();
+            //Debug.Log("Hey we are moving!!");
+            //m_JumpParticleSystem.Play();
+            m_JumpParticleSystem.enableEmission = true;
         }
-        else if(!isMoving && m_JumpParticleSystem.isPlaying)
+        else if(!isMoving)
         {
-            m_JumpParticleSystem.Stop();
+            //m_JumpParticleSystem.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+            m_JumpParticleSystem.enableEmission = false;
         }
     }
 
