@@ -59,7 +59,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable, IDamagea
     }
 
     IEnumerator Death()
-    { 
+    {
+        Debug.Log("--- HEY WE STARTED THE DEATH COROUTINE ---");
+
         alive = false;
 
         photonView.RPC("BloodRPC", RpcTarget.All, this.transform.position);
