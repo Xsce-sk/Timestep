@@ -9,11 +9,12 @@ using Cinemachine;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     // Singleton for GameManager. Not sure if we need this yet.
-    // public static GameManager Instance;
+    public static GameManager Instance;
 
     [Header("Settings")]
     public GameObject playerPrefab;
     public GameObject vCam;
+    public List<Vector3> spawnPoints = new List<Vector3>();
     public bool PunCallbacks;
 
     [Header("Debug")]
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         // For Game Manager Singleton. Not sure if we will need this, keeping just in case.
         //if (Instance != null && Instance != this)
         //    Destroy(gameObject);
-        //Instance = this;
+        Instance = this;
         //DontDestroyOnLoad(gameObject);
 
         //isConnected = false;
@@ -42,10 +43,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if (PlayerManager.LocalPlayerInstance == null)
             {
-                m_Player = PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0, 0, 0), Quaternion.identity, 0);
+                m_Player = PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPoints[PhotonNetwork.CurrentRoom.PlayerCount-1], Quaternion.identity, 0);
                 m_Player.name = m_Player.GetPhotonView().ViewID.ToString();
                 m_Player.GetComponent<MeshRenderer>().enabled = true; // Turn on the mesh renderer for the local player. Probably a better way to do this.
                 SetupCinemachine();
+                ScoreManager.instance.AddPlayer(m_Player.name);
             }
             else
             {

@@ -18,9 +18,10 @@ public class Damager : MonoBehaviour
         if (m_Shooter != null  && other.gameObject.name != m_Shooter.name)
         {
             IDamageable damageableComponent = other.GetComponent<IDamageable>();
-            if (damageableComponent != null)
+            if (damageableComponent != null && other.gameObject.GetComponent<PlayerManager>().IsAlive())
             {
                 damageableComponent.LoseHealth(m_Damage);
+                ScoreManager.instance.IncrementPlayer(m_Shooter.name);
 
                 if (showDebug)
                 {
@@ -40,5 +41,10 @@ public class Damager : MonoBehaviour
     {
         m_Shooter = shooter;
         Debug.Log("Projectile shooter set to " + m_Shooter.name);
+    }
+
+    public GameObject GetShooter()
+    {
+        return m_Shooter;
     }
 }
