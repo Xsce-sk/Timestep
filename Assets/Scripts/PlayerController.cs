@@ -73,11 +73,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     void UpdateParticleEffect()
     {
-        if (m_JumpParticleSystem.emission.enabled != isMoving)
-        {
+
             var emission = m_JumpParticleSystem.emission;
             emission.enabled = isMoving;
-        }
+
     }
 
     // Streams whether the local player is moving or not to the other users.
