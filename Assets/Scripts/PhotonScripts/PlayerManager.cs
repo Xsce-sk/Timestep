@@ -58,24 +58,43 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable, IDamagea
         }
     }
 
+    public void LoseHealth(int deltaHealth, string playerName)
+    {
+        if (showDebug)
+        {
+            Debug.Log(this.gameObject.name + " now has " + health);
+        }
+
+        health -= deltaHealth;
+
+        if (health == 0 && playerName == LocalPlayerInstance.name)
+        {
+            if (DeathCoroutine == null)
+                DeathCoroutine = StartCoroutine(Death());
+        }
+    }
+
     IEnumerator Death()
     {
         Debug.Log("--- HEY WE STARTED THE DEATH COROUTINE ---");
-
-        alive = false;
-
         photonView.RPC("BloodRPC", RpcTarget.All, this.transform.position);
 
-        mesh.enabled = false;
-
-        photonView.RPC("RespawnRPC", RpcTarget.All, this.gameObject);
+        if (photonView.IsMine) // if checks might be unneccesary..not sure
+        {
+            alive = false;
+            mesh.enabled = false;
+            LocalPlayerInstance.transform.position = GameManager.Instance.spawnPoints[Random.Range(0, GameManager.Instance.spawnPoints.Count)];
+        }
 
         yield return new WaitForSeconds(2);
-      
-        mesh.enabled = true;
-        alive = true;
-        health = 1;
-        DeathCoroutine = null;
+
+        if (photonView.IsMine)
+        {
+            mesh.enabled = true;
+            alive = true;
+            health = 1;
+            DeathCoroutine = null;
+        }
     }
 
     [PunRPC]
@@ -85,14 +104,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable, IDamagea
         Destroy(blood, 2);
     }
 
-    [PunRPC]
-    public void RespawnRPC(GameObject Player)
-    {
-        if (!Player.GetPhotonView().IsMine)
-            return;
-
-        Player.transform.position = GameManager.Instance.spawnPoints[Random.Range(0, GameManager.Instance.spawnPoints.Count)];
-    }
 
 
 

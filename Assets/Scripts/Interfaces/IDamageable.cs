@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IDamageable
 {
     void LoseHealth(int healthDelta);
+    void LoseHealth(int healthDelta, string playerName);
 }

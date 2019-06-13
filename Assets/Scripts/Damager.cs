@@ -20,7 +20,7 @@ public class Damager : MonoBehaviour
             IDamageable damageableComponent = other.GetComponent<IDamageable>();
             if (damageableComponent != null && other.gameObject.GetComponent<PlayerManager>().IsAlive())
             {
-                damageableComponent.LoseHealth(m_Damage);
+                damageableComponent.LoseHealth(m_Damage, other.gameObject.GetPhotonView().ViewID.ToString());
                 ScoreManager.instance.IncrementPlayer(m_Shooter.name);
 
                 if (showDebug)
