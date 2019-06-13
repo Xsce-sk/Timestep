@@ -94,7 +94,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable, IDamagea
     }
 
     [PunRPC]
-    public void LoseHeatlhRP(int deltaHealth, string playerName)
+    public void LoseHealthRPC(int deltaHealth, string playerName)
     {
         if (showDebug)
         {
