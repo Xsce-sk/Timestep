@@ -24,14 +24,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     void Update()
     {
-        UpdateParticleEffect();
-    }
-
-    void FixedUpdate()
-    {
         UpdateModifiers();
         Move();
         LimitSpeed();
+        UpdateParticleEffect();
     }
 
     void UpdateModifiers()
