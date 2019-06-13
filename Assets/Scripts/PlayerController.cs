@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     float horizontalModifier;
     float verticalModifier;
-    bool isMoving;
+    public bool isMoving;
 
     ParticleSystem m_JumpParticleSystem;
     Rigidbody m_Rigidbody;
